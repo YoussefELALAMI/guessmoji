@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify, request
 from models.database import Category, Emojis
 from models.database import db
 
-game_bp = Blueprint('game', __name__, url_prefix='/game')
+game_bp = Blueprint('api', __name__, url_prefix='/api')
 
 @game_bp.route("/categories", methods=["GET"])
 def get_categories():
