@@ -15,7 +15,7 @@ def generate_emoji(category: str) -> list[str]:
     Generate a list of emojis based on the given category.
     """
     prompt = (
-        f"Generate 5 fun emoji quizzes for the category '{category}'. "
+        f"Generate 10 fun emoji quizzes for the category '{category}'. "
         "Each quiz should contain:\n"
         "- 1 line of 2 to 4 emojis as the question\n"
         "- The correct answer as a string (e.g. 'Pizza', 'Titanic', 'Soccer', 'The Lion King')\n"
