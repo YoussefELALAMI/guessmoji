@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap');
+
+// 🎨 Theme Variables
+$primary-color: #8e44ad;
+$accent-color: #f39c12;
+$bg-gradient: linear-gradient(to right, #8e2de2, #4a00e0);
+$text-color: #ffffff;
+
+@mixin glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+}
+
+.home-container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: $bg-gradient;
+  color: $text-color;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeIn 1s ease-out;
+
+  .intro {
+    max-width: 600px;
+    margin-bottom: 0rem;
+
+    p {
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .typewriter {
+      color: $text-color;
+      font-size: 1.5rem;
+      width: 100%;
+      max-width: 600px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid $accent-color;
+      animation: typing 3.5s steps(50, end), blink-caret 0.75s step-end infinite;
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    .play-button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: $text-color;
+      background: $accent-color;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px $accent-color;
+      }
+    }
+  }
+
+  .categories {
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .category-list {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .category-card {
+        @include glass;
+        padding: 1rem 2rem;
+        font-size: 1.3rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+.emoji-sky {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  
+}
+
+.emoji {
+  font-size: 2.5rem;
+  animation: float 6s ease-in-out infinite, rotate 8s linear infinite;
+  display: inline-block;
+  position: relative;
+  
+}
+
+// 🎞 Animations
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px $accent-color;
+  }
+  to {
+    text-shadow: 0 0 25px $accent-color, 0 0 10px $accent-color;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,to {
+    border-color : transparent;
+  }
+  50% {
+    border-color: $accent-color;
+  }
+}
+
+// Floating up and down
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+// Slow rotation
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+

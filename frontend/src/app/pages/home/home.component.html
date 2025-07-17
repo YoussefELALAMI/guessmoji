@@ -1,0 +1,29 @@
+<!-- home.component.html -->
+<div class="home-container">
+
+  <app-header></app-header>
+
+  <div class="intro">
+    <p class="typewriter">🔮 Can your mind outmatch the emoji oracle?</p>
+  </div>
+
+<div class="emoji-sky">
+  <span class="emoji">🍕</span>
+  <span class="emoji">🎬</span>
+  <span class="emoji">🍔</span>
+  <span class="emoji">🎯</span>
+  <span class="emoji">🍿</span>
+  <span class="emoji">📽️</span>
+</div>
+
+  <section class="categories">
+    <h2>Select a category</h2>
+    <div class="category-list">
+      @for (category of categories; track $index) {
+        <div class="category-card" [routerLink]="['quiz', category.name]" routerLinkActive="active" (onClick)="selectCategory(category.name)">
+          {{ category.name }}
+        </div>
+      }
+    </div>
+  </section>
+</div>

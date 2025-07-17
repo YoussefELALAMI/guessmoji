@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap');
+
+// 🎨 Existing Theme Variables (from your home page)
+$primary-color: #8e44ad;
+$accent-color: #f39c12;
+$bg-gradient: linear-gradient(to right, #8e2de2, #4a00e0);
+$text-color: #ffffff;
+
+// 🎯 Quiz-Specific Variables
+$form-bg: rgba(255, 255, 255, 0.15);
+$input-bg: rgba(255, 255, 255, 0.2);
+$input-border: rgba(255, 255, 255, 0.3);
+$focus-color: #e74c3c;
+$success-color: #27ae60;
+$label-color: rgba(255, 255, 255, 0.9);
+
+// 🔧 Existing Glass Mixin
+@mixin glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+}
+
+// 🆕 New Quiz-Specific Mixins
+@mixin input-focus {
+  outline: none;
+  border-color: $focus-color;
+  box-shadow: 0 0 0 3px rgba($focus-color, 0.2);
+  transform: translateY(-2px);
+}
+
+@mixin button-hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba($accent-color, 0.4);
+}
+
+// 🏠 Main Container
+.quiz-container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: $bg-gradient;
+  color: $text-color;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 1s ease-out;
+  position: relative;
+
+  // 🎭 Decorative Background Elements
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  // 📝 Quiz Form Container
+  form {
+    @include glass;
+    padding: 3rem 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    animation: slideUp 0.8s ease-out;
+
+    // 🏷️ Label Styling
+    label {
+      display: block;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: $label-color;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      
+      // ✨ Animated underline effect
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: $accent-color;
+        border-radius: 2px;
+        animation: expandLine 1s ease-out 0.5s both;
+      }
+    }
+
+    // 📤 Input Field Styling
+    input[type="text"] {
+      width: 100%;
+      padding: 1.2rem 1.5rem;
+      font-size: 1.1rem;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      color: $text-color;
+      background: $input-bg;
+      border: 2px solid $input-border;
+      border-radius: 15px;
+      margin-bottom: 2rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(5px);
+      
+      // 🎯 Placeholder Styling
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+        font-style: italic;
+        transition: opacity 0.3s ease;
+      }
+
+      // 🔍 Focus State
+      &:focus {
+        @include input-focus;
+        background: rgba(255, 255, 255, 0.25);
+        
+        &::placeholder {
+          opacity: 0.4;
+        }
+      }
+
+      // 🎨 Hover State
+      &:hover {
+        border-color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.22);
+      }
+
+      // ✅ Valid State (when user types)
+      &:valid:not(:placeholder-shown) {
+        border-color: $success-color;
+        background: rgba(39, 174, 96, 0.1);
+      }
+    }
+
+    // 🚀 Submit Button Styling
+    input[type="submit"] {
+      width: 100%;
+      padding: 1.2rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      font-family: 'Raleway', sans-serif;
+      color: $text-color;
+      background: linear-gradient(135deg, $accent-color, #c87f0a);
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      
+      // ✨ Shine effect on hover
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+      }
+
+      // 🎭 Hover Effects
+      &:hover {
+        @include button-hover;
+        
+        &::before {
+          left: 100%;
+        }
+      }
+
+      // 🔽 Active State
+      &:active {
+        transform: translateY(0) scale(0.98);
+        box-shadow: 0 5px 15px rgba($accent-color, 0.3);
+      }
+
+      // 🔧 Focus State for Accessibility
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba($accent-color, 0.3);
+      }
+    }
+
+    // 📱 Responsive Design
+    @media (max-width: 768px) {
+      padding: 2rem 1.5rem;
+      margin: 1rem;
+      
+      label {
+        font-size: 1.1rem;
+      }
+      
+      input[type="text"] {
+        padding: 1rem 1.2rem;
+        font-size: 1rem;
+      }
+      
+      input[type="submit"] {
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+// 🎬 Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes expandLine {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 50px;
+    opacity: 1;
+  }
+}
+
+// 🎨 Additional Visual Enhancements
+.quiz-decoration {
+  position: absolute;
+  font-size: 4rem;
+  opacity: 0.1;
+  animation: float 8s ease-in-out infinite;
+  z-index: 1;
+  
+  &:nth-child(1) {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+  
+  &:nth-child(2) {
+    top: 20%;
+    right: 10%;
+    animation-delay: 2s;
+  }
+  
+  &:nth-child(3) {
+    bottom: 10%;
+    left: 15%;
+    animation-delay: 4s;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
