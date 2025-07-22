@@ -389,6 +389,9 @@ $box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   animation: border-glow 1.5s ease-in-out infinite alternate;
@@ -580,6 +583,7 @@ h3 {
     z-index: 1;
     
     // Remove default arrows
+    appearance: textfield;
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     
