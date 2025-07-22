@@ -37,13 +37,6 @@ export class HomeComponent {
     });
   }
 
-  onCategoryChange(categoryName: string) {
-    this.other = categoryName === 'other';
-    this.quizParamsForm.patchValue({ category: categoryName });
-    console.log('Category changed to:', categoryName);
-  }
-
-
   startQuiz() {
     const params = this.quizParamsForm.value;
     console.log('Starting quiz with params:', params);

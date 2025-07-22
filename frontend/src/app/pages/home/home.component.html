@@ -25,19 +25,19 @@
     <div class="category-grid">
       @for (category of categories; track $index) {
         <label class="category-card" [class.selected]="quizParamsForm.value.category === category.name">
-          <input type="radio" [value]="category.name" formControlName="category" (change)="onCategoryChange(category.name)" />
+          <input type="radio" name="category" [value]="category.name" formControlName="category" (change)="other = false" />
           {{ category.name }}
         </label>
       }
 
       <label class="category-card" [class.selected]="quizParamsForm.value.category === 'other'">
-        <input type="radio" value="other" formControlName="category" (change)="onCategoryChange('other')" />
+        <input type="radio" name="category" value="other" formControlName="category" (change)="other = true" />
         Other
       </label>
     </div>
 
     @if (other) {
-      <input type="text" formControlName="customCategory" placeholder="Enter your own category" class="custom-category-input" />
+      <input type="text" name="customCategory" formControlName="customCategory" placeholder="Enter your own category" class="custom-category-input" />
     }
 
     <!-- Difficulty of Questions -->
