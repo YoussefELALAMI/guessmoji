@@ -64,13 +64,36 @@ $box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       margin-bottom: 1rem;
       animation: glow 2s infinite alternate;
     }
-
     h3 {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       color: #fff;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-      animation: fadeIn 1s ease-out;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+      animation: pulse-glow 3s ease-in-out infinite alternate;
+      position: relative;
+      text-align: center;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, $accent-color, transparent);
+        animation: line-expand 2s ease-in-out infinite alternate;
+      }
+      
+      &::before {
+        content: '✨';
+        position: absolute;
+        left: -40px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.2rem;
+        animation: sparkle-rotate 4s linear infinite;
+      }
     }
 
     .category-grid {
@@ -438,6 +461,438 @@ $box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+  }
+}
+
+// 🔢 Advanced Artistic Number Input Design 
+
+// 🔢 Advanced Artistic Number Input Design (No HTML modifications needed)
+
+h3 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+  // Removed continuous pulsing animation
+  position: relative;
+  text-align: center;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $accent-color, transparent);
+    // Removed continuous line expansion animation
+  }
+  
+  &::before {
+    content: '✨';
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    // Removed continuous sparkle rotation
+  }
+}
+
+.number-input {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  
+  // Floating orbs background using pseudo-elements
+  &::before {
+    content: '';
+    position: absolute;
+    top: -25px;
+    left: -25px;
+    right: -25px;
+    bottom: -25px;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(142, 68, 173, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(243, 156, 18, 0.25) 0%, transparent 50%),
+      radial-gradient(circle at 60% 20%, rgba(116, 185, 255, 0.2) 0%, transparent 50%);
+    border-radius: 50px;
+    // Subtle floating animation, less aggressive
+    animation: orb-float-subtle 12s ease-in-out infinite;
+    z-index: -1;
+  }
+  
+  // Animated border effect using ::after
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(243, 156, 18, 0.6),
+      transparent,
+      rgba(142, 68, 173, 0.6),
+      transparent,
+      rgba(116, 185, 255, 0.4),
+      transparent
+    );
+    border-radius: 23px;
+    // Only animate border on interaction, not continuously
+    animation: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+  }
+  
+  // Show animated border only on hover/focus
+  &:hover::after,
+  &:focus-within::after {
+    opacity: 1;
+    animation: border-flow 3s linear infinite;
+  }
+  
+  input[type="number"] {
+    @include glass;
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    background: 
+      linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05)),
+      linear-gradient(145deg, $primary-color, darken($primary-color, 10%));
+    background-clip: padding-box, border-box;
+    background-origin: border-box;
+    color: $text-color;
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    outline: none;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    
+    // Remove default arrows
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    // Placeholder styling
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 400;
+    }
+    
+    // Focus state with advanced effects
+    &:focus {
+      border: 3px solid $accent-color;
+      box-shadow: 
+        0 0 30px rgba(243, 156, 18, 0.5),
+        inset 0 2px 10px rgba(0, 0, 0, 0.2),
+        0 8px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 8px rgba(243, 156, 18, 0.1);
+      transform: scale(1.05) translateY(-3px);
+      background: 
+        linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1)),
+        linear-gradient(145deg, lighten($primary-color, 8%), $primary-color);
+      // Removed continuous pulse animation
+      animation: input-focus-pulse 0.6s ease-out;
+    }
+    
+    // Hover state
+    &:hover:not(:focus) {
+      transform: scale(1.02) translateY(-1px);
+      box-shadow: 
+        0 6px 25px rgba(0, 0, 0, 0.2),
+        0 0 20px rgba(255, 255, 255, 0.15);
+      border-color: rgba(243, 156, 18, 0.5);
+    }
+    
+    // Value-based styling (using attribute selectors for dynamic effects)
+    &[value="1"] { box-shadow: 0 0 15px rgba(255, 99, 132, 0.3); }
+    &[value="10"] { box-shadow: 0 0 15px rgba(255, 206, 84, 0.3); }
+    &[value="25"] { box-shadow: 0 0 15px rgba(75, 192, 192, 0.3); }
+    &[value="50"] { box-shadow: 0 0 15px rgba(153, 102, 255, 0.3); }
+  }
+  
+  // Custom increment/decrement buttons using pseudo-elements
+  &:hover {
+    &::before {
+      content: '+';
+      position: absolute;
+      right: 12px;
+      top: 18px;
+      width: 24px;
+      height: 20px;
+      background: linear-gradient(145deg, rgba(243, 156, 18, 0.8), rgba(243, 156, 18, 0.6));
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      z-index: 2;
+      transition: all 0.2s ease;
+      opacity: 0;
+      animation: button-fade-in 0.3s ease forwards;
+    }
+  }
+  
+  // Progress indicator at bottom using gradient
+  &[data-progress]::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    height: 4px;
+    width: calc(var(--progress, 50) * 1%);
+    background: linear-gradient(90deg, $accent-color, lighten($accent-color, 15%));
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+  }
+  
+  &:focus-within[data-progress]::after {
+    opacity: 1;
+    // Removed continuous shimmer animation
+  }
+}
+
+// Enhanced container effects
+.number-input {
+  // Particle effects using multiple pseudo-elements and box-shadows
+  &:focus-within {
+    &::before {
+      box-shadow: 
+        20px 10px 0 2px rgba(243, 156, 18, 0.6),
+        -15px 15px 0 1px rgba(142, 68, 173, 0.5),
+        25px -20px 0 1px rgba(116, 185, 255, 0.4),
+        -20px -10px 0 2px rgba(243, 156, 18, 0.3);
+      animation: orb-float-subtle 12s ease-in-out infinite, particle-scatter 1.2s ease-out;
+    }
+  }
+  
+  // Dynamic glow based on input value
+  &:has(input[value="50"]) {
+    &::after {
+      background: linear-gradient(45deg, 
+        rgba(255, 0, 150, 0.6), 
+        rgba(0, 255, 255, 0.6),
+        rgba(255, 255, 0, 0.6)
+      );
+      animation: rainbow-border 2s linear infinite;
+    }
+  }
+}
+
+// Floating labels and value display
+.number-input input:focus + *::after,
+.number-input input:not(:placeholder-shown) + *::after {
+  content: attr(data-label, "Questions Selected");
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  font-weight: 300;
+  opacity: 1;
+  animation: label-slide-up 0.3s ease;
+}
+
+// Advanced Animations
+@keyframes pulse-glow {
+  0% {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+    transform: scale(1);
+  }
+  100% {
+    text-shadow: 
+      0 0 25px rgba(255, 255, 255, 0.8), 
+      0 0 35px rgba(243, 156, 18, 0.4),
+      0 0 45px rgba(243, 156, 18, 0.2);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes line-expand {
+  0% {
+    width: 60px;
+    opacity: 0.6;
+  }
+  100% {
+    width: 120px;
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(243, 156, 18, 0.5);
+  }
+}
+
+@keyframes sparkle-rotate {
+  0% { 
+    transform: translateY(-50%) rotate(0deg) scale(1);
+    opacity: 0.7;
+  }
+  50% { 
+    transform: translateY(-50%) rotate(180deg) scale(1.2);
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(-50%) rotate(360deg) scale(1);
+    opacity: 0.7;
+  }
+}
+
+// More subtle floating animation
+@keyframes orb-float-subtle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.02) rotate(180deg);
+    opacity: 0.8;
+  }
+}
+
+// Border flow animation (only on interaction)
+@keyframes border-flow {
+  0% {
+    transform: rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    filter: hue-rotate(360deg);
+  }
+}
+
+// Rainbow border (only for max value)
+@keyframes rainbow-border {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+// Single-use focus animation (not infinite)
+@keyframes input-focus-pulse {
+  0% {
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 0 30px rgba(243, 156, 18, 0.8);
+  }
+  50% {
+    transform: scale(1.08) translateY(-5px);
+    box-shadow: 0 0 40px rgba(243, 156, 18, 1);
+  }
+  100% {
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 0 30px rgba(243, 156, 18, 0.5);
+  }
+}
+
+@keyframes particle-scatter {
+  0% {
+    box-shadow: 
+      0 0 0 0 rgba(243, 156, 18, 1),
+      0 0 0 0 rgba(142, 68, 173, 1),
+      0 0 0 0 rgba(116, 185, 255, 1);
+  }
+  50% {
+    box-shadow: 
+      30px 15px 0 3px rgba(243, 156, 18, 0.8),
+      -25px 20px 0 2px rgba(142, 68, 173, 0.7),
+      35px -25px 0 2px rgba(116, 185, 255, 0.6);
+  }
+  100% {
+    box-shadow: 
+      50px 25px 0 1px rgba(243, 156, 18, 0),
+      -40px 35px 0 1px rgba(142, 68, 173, 0),
+      55px -45px 0 1px rgba(116, 185, 255, 0);
+  }
+}
+
+@keyframes button-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+@keyframes label-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .number-input {
+    max-width: 280px;
+    height: 70px;
+    
+    input[type="number"] {
+      font-size: 2rem;
+    }
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    
+    &::before {
+      left: -30px;
+      font-size: 1rem;
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .number-input input[type="number"] {
+    border: 3px solid $accent-color;
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
