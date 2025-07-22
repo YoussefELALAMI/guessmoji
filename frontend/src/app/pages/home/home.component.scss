@@ -1,3 +1,4 @@
+@use "sass:color";
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap');
 
 // 🎨 Theme Variables
@@ -5,6 +6,8 @@ $primary-color: #8e44ad;
 $accent-color: #f39c12;
 $bg-gradient: linear-gradient(to right, #8e2de2, #4a00e0);
 $text-color: #ffffff;
+$main-bg: linear-gradient(to right, #8e2de2, #4a00e0);
+$box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 
 @mixin glass {
   background: rgba(255, 255, 255, 0.1);
@@ -46,70 +49,422 @@ $text-color: #ffffff;
       margin: 2rem auto;
       text-align: center;
     }
+  }
 
-    .play-button {
-      padding: 1rem 2rem;
+  .quiz-setup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    animation: fadeIn 1s ease-out;
+
+    h2 {
+      font-size: 2.2rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      animation: glow 2s infinite alternate;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      animation: fadeIn 1s ease-out;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1.2rem;
+      justify-content: center;
+      width: 100%;
+      max-width: 700px;
+    }
+    .category-card {
+      @include glass;
+      text-align: center;
+      padding: 1rem;
       font-size: 1.2rem;
-      font-weight: bold;
-      color: $text-color;
-      background: $accent-color;
-      border: none;
-      border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.2s;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
 
       &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 20px $accent-color;
+        transform: scale(1.08);
+        border-color: $accent-color;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      }
+
+      &.selected {
+        background: $accent-color;
+        color: #fff;
+        transform: scale(1.1);
+        font-weight: bold;
       }
     }
+
+
+.difficulty-inputs {
+  @include glass;
+  position: relative;
+  display: flex;
+  margin: auto;
+  flex-wrap: wrap;
+  border-radius: 1rem;
+  background: $main-bg;
+  box-sizing: border-box;
+  box-shadow: $box-shadow;
+  padding: 0.5rem;
+  width: 300px;
+  font-size: 14px;
+  gap: 0.5rem;
+}
+
+.difficulty-inputs .difficulty-radio {
+  flex: 1 1 auto;
+  text-align: center;
+  position: relative;
+}
+
+.difficulty-inputs .difficulty-radio input {
+  display: none;
+}
+
+.difficulty-inputs .difficulty-radio .name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.7rem;
+  border: none;
+  padding: 0.7rem 0;
+  color: #ffff;
+  font-weight: 500;
+  font-family: inherit;
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  box-shadow:
+    inset 2px 2px 5px rgba(0, 0, 0, 0.2),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.1),
+    3px 3px 8px rgba(59, 130, 246, 0.3);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.difficulty-inputs .difficulty-radio input:checked + .name {
+  background: $accent-color;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    inset 2px 2px 5px rgba(0, 0, 0, 0.2),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.1),
+    3px 3px 8px rgba(59, 130, 246, 0.3);
+  transform: translateY(2px);
+}
+
+/* Hover effect */
+.difficulty-inputs .difficulty-radio:hover .name {
+  background: $bg-gradient;
+  transform: translateY(-1px);
+  box-shadow: $accent-color;
+}
+
+.difficulty-inputs .difficulty-radio:hover input:checked + .name {
+  transform: translateY(1px);
+}
+
+/* Animation */
+.difficulty-inputs .difficulty-radio input:checked + .name {
+  animation: select 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Particles */
+.difficulty-inputs .difficulty-radio .name::before,
+.difficulty-inputs .difficulty-radio .name::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.difficulty-inputs .difficulty-radio input:checked + .name::before,
+.difficulty-inputs .difficulty-radio input:checked + .name::after {
+  animation: particles 0.8s ease-out forwards;
+}
+
+.difficulty-inputs .difficulty-radio .name::before {
+  background: #60a5fa;
+  box-shadow: 0 0 6px #60a5fa;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.difficulty-inputs .difficulty-radio .name::after {
+  background: #93c5fd;
+  box-shadow: 0 0 8px #93c5fd;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Sparkles */
+.difficulty-inputs .difficulty-radio .name::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    rgba(59, 130, 246, 0.3) 0%,
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.difficulty-inputs .difficulty-radio input:checked + .name::after {
+  opacity: 1;
+  animation: sparkle-bg 1s ease-out forwards;
+}
+
+/* Multiple particles */
+.difficulty-inputs .difficulty-radio input:checked + .name {
+  overflow: visible;
+}
+
+.difficulty-inputs .difficulty-radio input:checked + .name::before {
+  box-shadow:
+    0 0 6px #60a5fa,
+    10px -10px 0 #60a5fa,
+    -10px -10px 0 #60a5fa;
+  animation: multi-particles-top 0.8s ease-out forwards;
+}
+
+.difficulty-inputs .difficulty-radio input:checked + .name::after {
+  box-shadow:
+    0 0 8px #93c5fd,
+    10px 10px 0 #93c5fd,
+    -10px 10px 0 #93c5fd;
+  animation: multi-particles-bottom 0.8s ease-out forwards;
+}
+
+@keyframes select {
+  0% {
+    transform: scale(0.95) translateY(2px);
   }
-
-  .categories {
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .category-list {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-
-      .category-card {
-        @include glass;
-        padding: 1rem 2rem;
-        font-size: 1.3rem;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        border: 2px solid rgba(255, 255, 255, 0.2);
-
-        &:hover {
-          transform: scale(1.1);
-        }
-      }
-    }
+  50% {
+    transform: scale(1.05) translateY(-1px);
   }
+  100% {
+    transform: scale(1) translateY(2px);
+  }
+}
+
+@keyframes multi-particles-top {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  40% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px) scale(0);
+    box-shadow:
+      0 0 6px transparent,
+      20px -20px 0 transparent,
+      -20px -20px 0 transparent;
+  }
+}
+
+@keyframes multi-particles-bottom {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  40% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px) scale(0);
+    box-shadow:
+      0 0 8px transparent,
+      20px 20px 0 transparent,
+      -20px 20px 0 transparent;
+  }
+}
+
+@keyframes sparkle-bg {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+/* Ripple effect */
+.difficulty-inputs .difficulty-radio .name::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    rgba(255, 255, 255, 0.5) 0%,
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.difficulty-inputs .difficulty-radio input:checked + .name::before {
+  animation: ripple 0.8s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 1;
+    transform: scale(0.2);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
+}
+
+/* Glowing border */
+.difficulty-inputs .difficulty-radio input:checked + .name {
+  position: relative;
+}
+
+.difficulty-inputs .difficulty-radio input:checked + .name::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    45deg,
+    rgba(59, 130, 246, 0.5),
+    rgba(37, 99, 235, 0.5)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes border-glow {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+  }
+}
+
+.custom-input-container {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-category-input {
+  @include glass;
+  padding: 1rem 1.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: $text-color;
+  font-size: 1.1rem;
+  font-family: 'Raleway', sans-serif;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  margin-top: 1rem;
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: $accent-color;
+    box-shadow: 0 0 20px rgba(243, 156, 18, 0.3);
+  }
+}
+
+.start-quiz-btn {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: $text-color;
+  background: $accent-color;
+  border: none;
+  margin-top: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Raleway', sans-serif;
+  width: fit-content;
+  
+  &:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px $accent-color;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+// Add a subtle animation for form appearance
+form {
+  animation: fadeIn 1s ease-out 0.5s both;
 }
 
 .emoji-sky {
-  position: relative;
   display: flex;
   justify-content: center;
+  gap: 2rem;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  
+  padding: 1.5rem 0;
+  animation: float 8s ease-in-out infinite;
 }
 
 .emoji {
-  font-size: 2.5rem;
-  animation: float 6s ease-in-out infinite, rotate 8s linear infinite;
-  display: inline-block;
-  position: relative;
+  font-size: 2.2rem;
+  transition: transform 0.5s ease;
+  animation: rotate 12s linear infinite;
   
+  &:hover {
+    transform: scale(1.3) rotate(10deg);
+  }
 }
+
 
 // 🎞 Animations
 @keyframes glow {
