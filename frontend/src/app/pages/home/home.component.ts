@@ -1,23 +1,33 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 import { HeaderComponent } from "../header/header.component";
 import { ApiService } from '../../services/api.service';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, RouterLinkActive, HeaderComponent],
+  imports: [HeaderComponent, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
-  private apiService = inject(ApiService);
-  categories: any[] = [];
 
-  constructor() {}
+export class HomeComponent {
+
+  // Injecting the ApiService
+  private apiService = inject(ApiService);
+
+  // Properties for the component
+  categories: any[] = [];
+  other: boolean = false;
+  quizParamsForm = new FormGroup({
+    category: new FormControl(''),
+    customCategory: new FormControl(''),
+    difficulty: new FormControl(''),
+    numberOfQuestions: new FormControl(5)
+  });
 
   ngOnInit(): void {
     this.apiService.getCategories().subscribe({
-      next: (data) => {
+      next: (data) => { 
         this.categories = data;
         console.log('Categories fetched:', this.categories);
       },
@@ -27,8 +37,15 @@ export class HomeComponent {
     });
   }
 
-
-  selectCategory(categoryName: string) {
+  onCategoryChange(categoryName: string) {
+    this.other = categoryName === 'other';
+    this.quizParamsForm.patchValue({ category: categoryName });
+    console.log('Category changed to:', categoryName);
   }
 
+
+  startQuiz() {
+    const params = this.quizParamsForm.value;
+    console.log('Starting quiz with params:', params);
+  }
 }
