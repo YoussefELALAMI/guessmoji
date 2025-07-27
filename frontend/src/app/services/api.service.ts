@@ -16,4 +16,9 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/categories`);
   }
 
+  // POST request to start a quiz with given parameters
+  startQuiz(params: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/start-quiz`, params);
+  }
+
 }
