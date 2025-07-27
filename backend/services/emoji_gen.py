@@ -10,12 +10,12 @@ load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
-def generate_emoji(category: str) -> list[str]:
+def generate_emoji(category: str, difficulty: str, number_of_questions: int) -> list[dict]:
     """
     Generate a list of emojis based on the given category.
     """
     prompt = (
-        f"Generate 10 fun emoji quizzes for the category '{category}'. "
+        f"Generate {number_of_questions} fun emoji quizzes for the category '{category}' with difficulty '{difficulty}'. "
         "Each quiz should contain:\n"
         "- 1 line of 2 to 4 emojis as the question\n"
         "- The correct answer as a string (e.g. 'Pizza', 'Titanic', 'Soccer', 'The Lion King')\n"

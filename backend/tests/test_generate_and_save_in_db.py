@@ -4,7 +4,7 @@ from app import app
 
 with app.app_context():  # required to access the Flask database
     category = "Countries"
-    emojis = generate_emoji(category)
+    emojis = generate_emoji(category, difficulty="easy", number_of_questions=5)  # type: ignore
     print("Generated:", emojis)
     save_quizzes_to_db(emojis, category) # type: ignore
     print("Saved quizzes to DB!")
