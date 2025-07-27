@@ -7,65 +7,65 @@
     <p class="typewriter">🔮 Can your mind outmatch the emoji oracle?</p>
   </div>
 
-<div class="emoji-sky">
-  <span class="emoji">🍕</span>
-  <span class="emoji">🎬</span>
-  <span class="emoji">🍔</span>
-  <span class="emoji">🎯</span>
-  <span class="emoji">🍿</span>
-  <span class="emoji">📽️</span>
-</div>
+  <div class="emoji-sky">
+    <span class="emoji">🍕</span>
+    <span class="emoji">🎬</span>
+    <span class="emoji">🍔</span>
+    <span class="emoji">🎯</span>
+    <span class="emoji">🍿</span>
+    <span class="emoji">📽️</span>
+  </div>
 
   <section class="quiz-setup">
-  <h2>🎯 Select Your Quiz Preferences</h2>
-  <form [formGroup]="quizParamsForm" (ngSubmit)="startQuiz()">
+    <h2>🎯 Select Your Quiz Preferences</h2>
+    <form [formGroup]="quizParamsForm" (ngSubmit)="startQuiz()">
 
-    <!-- Category Selection -->
-    <h3>📚 Choose a Category</h3>
-    <div class="category-grid">
-      @for (category of categories; track $index) {
-        <label class="category-card" [class.selected]="quizParamsForm.value.category === category.name">
-          <input type="radio" name="category" [value]="category.name" formControlName="category" (change)="other = false" />
-          {{ category.name }}
+      <!-- Category Selection -->
+      <h3>📚 Choose a Category</h3>
+      <div class="category-grid">
+        @for (category of categories; track $index) {
+          <label class="category-card" [class.selected]="quizParamsForm.value.category === category">
+            <input type="radio" name="category" [value]="category" formControlName="category" (change)="other = false" />
+            {{ category }}
+          </label>
+        }
+
+        <label class="category-card" [class.selected]="quizParamsForm.value.category === 'other'">
+          <input type="radio" name="category" value="other" formControlName="category" (change)="other = true" />
+          Other
         </label>
+      </div>
+
+      @if (other) {
+        <input type="text" name="customCategory" formControlName="customCategory" placeholder="Enter your own category" class="custom-category-input" />
       }
 
-      <label class="category-card" [class.selected]="quizParamsForm.value.category === 'other'">
-        <input type="radio" name="category" value="other" formControlName="category" (change)="other = true" />
-        Other
-      </label>
-    </div>
+      <!-- Difficulty of Questions -->
+      <h3>🧠 Select Difficulty</h3>
+      <div class="difficulty-inputs">
+        <label class="difficulty-radio">
+          <input checked="" name="difficulty" type="radio" formControlName="difficulty" [value]="'easy'" />
+          <span class="name">Easy</span>
+        </label>
+        <label class="difficulty-radio">
+          <input name="difficulty" type="radio" formControlName="difficulty" [value]="'medium'" />
+          <span class="name">Medium</span>
+        </label>
+        <label class="difficulty-radio">
+          <input name="difficulty" type="radio" formControlName="difficulty" [value]="'hard'" />
+          <span class="name">Hard</span>
+        </label>
+      </div>
 
-    @if (other) {
-      <input type="text" name="customCategory" formControlName="customCategory" placeholder="Enter your own category" class="custom-category-input" />
-    }
-
-    <!-- Difficulty of Questions -->
-    <h3>🧠 Select Difficulty</h3>
-    <div class="difficulty-inputs">
-      <label class="difficulty-radio">
-        <input checked="" name="radio" type="radio" formControlName="difficulty" [value]="'easy'" />
-        <span class="name">Easy</span>
-      </label>
-      <label class="difficulty-radio">
-        <input name="radio" type="radio" formControlName="difficulty" [value]="'medium'" />
-        <span class="name">Medium</span>
-      </label>
-      <label class="difficulty-radio">
-        <input name="radio" type="radio" formControlName="difficulty" [value]="'hard'" />
-        <span class="name">Hard</span>
-      </label>
-    </div>
-
-    <!-- Number of Questions -->
-    <h3>🔢 Number of Questions</h3>
-    <div class="number-input">
-      <input type="number" formControlName="numberOfQuestions" min="1" max="50" />
-    </div>
-    
-    <!-- Start Quiz Button -->
-    <button type="submit" class="start-quiz-btn" [disabled]="quizParamsForm.invalid">🚀 Start Quiz</button>
-  </form>
-</section>
+      <!-- Number of Questions -->
+      <h3>🔢 Number of Questions</h3>
+      <div class="number-input">
+        <input type="number" formControlName="numberOfQuestions" min="1" max="15" />
+      </div>
+      
+      <!-- Start Quiz Button -->
+      <button type="submit" class="start-quiz-btn" [disabled]="quizParamsForm.invalid">🚀 Start Quiz</button>
+    </form>
+  </section>
 
 </div>

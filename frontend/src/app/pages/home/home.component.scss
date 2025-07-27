@@ -130,6 +130,7 @@ $box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 
 .difficulty-inputs {
   @include glass;
+  align-items: center;
   position: relative;
   display: flex;
   margin: auto;
@@ -139,8 +140,9 @@ $box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   box-shadow: $box-shadow;
   padding: 0.5rem;
-  width: 300px;
-  font-size: 14px;
+  height: 80px;
+  width: 500px;
+  font-size: 18px;
   gap: 0.5rem;
 }
 
@@ -442,17 +444,23 @@ $box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 
 .start-quiz-btn {
   padding: 1rem 2rem;
-  font-size: 1.2rem;
+  display: flex;
+  margin: auto;
+  align-items: center; 
+  justify-content: center;
+  font-size: 1.8rem;
   font-weight: bold;
   color: $text-color;
   background: $accent-color;
   border: none;
   margin-top: 1rem;
-  border-radius: 10px;
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Raleway', sans-serif;
-  width: fit-content;
+  height: 80px;
+  width: 280px;
+
   
   &:hover:not(:disabled) {
     transform: scale(1.05);
