@@ -475,9 +475,7 @@ $box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 }
 
-// 🔢 Advanced Artistic Number Input Design 
-
-// 🔢 Advanced Artistic Number Input Design (No HTML modifications needed)
+// 🔢 Advanced Artistic Number Input Design
 
 h3 {
   font-size: 1.8rem;
@@ -932,6 +930,73 @@ form {
   }
 }
 
+.spinner {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  border-radius: 50%;
+  -webkit-mask: radial-gradient(farthest-side,#0000 40%,#6121d1 41%);
+  background: linear-gradient(0deg ,rgba(97,33,209,0.5) 50%,rgba(97,33,209,1) 0) center/4.5px 100%,
+        linear-gradient(90deg,rgba(97,33,209,0.25) 50%,rgba(97,33,209,0.75) 0) center/100% 4.5px;
+  background-repeat: no-repeat;
+  animation: spinner-d3o0rx 1s infinite steps(12);
+}
+
+.spinner::before,
+.spinner::after {
+  content: "";
+  grid-area: 1/1;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.915;
+  transform: rotate(30deg);
+}
+
+.spinner::after {
+  opacity: 0.83;
+  transform: rotate(60deg);
+}
+
+@keyframes spinner-d3o0rx {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.loading-content {
+  background: $primary-color;
+  padding: 3rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.spinner-large {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 // 🎞 Animations
 @keyframes glow {

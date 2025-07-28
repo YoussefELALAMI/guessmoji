@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { HeaderComponent } from "../header/header.component";
 import { ApiService } from '../../services/api.service';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -14,12 +15,14 @@ export class HomeComponent {
 
   // Injecting the ApiService
   private apiService = inject(ApiService);
+  private router: Router = inject(Router);
 
   // Properties for the component
   categories: String[] = [];
   other: boolean = false;
+  isLoading: boolean = false;
   quizParamsForm = new FormGroup({
-    category: new FormControl('', [Validators.pattern('[a-zA-Z ]*')]),
+    category: new FormControl(''),
     customCategory: new FormControl('', [Validators.pattern('[a-zA-Z ]*')]),
     difficulty: new FormControl('', [Validators.required]),
     numberOfQuestions: new FormControl(5, [Validators.required, Validators.min(1), Validators.max(15)])
@@ -31,16 +34,25 @@ export class HomeComponent {
   }
 
   startQuiz() {
+    if (this.quizParamsForm.invalid) {
+      console.error('Form is invalid');
+      return;
+    }
+    this.isLoading = true; // Show loading overlay
     const params = this.quizParamsForm.value;
     console.log('Starting quiz with params:', params);
     this.apiService.startQuiz(params).subscribe({
       next: (data) => {
         console.log('Quiz started successfully:', data);
-        // Handle successful quiz start, e.g., navigate to quiz page
+        this.isLoading = false;
+        this.quizParamsForm.reset();
+        this.other = false;
+        this.router.navigate(['/quiz', data.category]);
       },
       error: (error) => {
         console.error('Error starting quiz:', error);
-        // Handle error, e.g., show an error message
+        this.isLoading = false;
+        alert('Failed to start quiz. Please try again.');
       }
     });
   }

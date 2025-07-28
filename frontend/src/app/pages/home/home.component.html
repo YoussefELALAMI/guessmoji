@@ -64,8 +64,25 @@
       </div>
       
       <!-- Start Quiz Button -->
-      <button type="submit" class="start-quiz-btn" [disabled]="quizParamsForm.invalid">🚀 Start Quiz</button>
+      <button 
+        type="submit" 
+        class="start-quiz-btn" 
+        [disabled]="quizParamsForm.invalid ||
+                      quizParamsForm.value.category === '' ||
+                      (other && quizParamsForm.value.customCategory?.trim() === '')
+        ">
+        🚀 Start Quiz</button>
     </form>
   </section>
+
+  <!-- Loading Overlay -->
+  @if (isLoading) {
+    <div class="loading-overlay">
+      <div class="loading-content">
+        <div class="spinner-large"></div>
+        <p>Loading...</p>
+      </div>
+    </div>
+  }
 
 </div>
