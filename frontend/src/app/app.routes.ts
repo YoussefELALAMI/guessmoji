@@ -6,6 +6,6 @@ import { QuizComponent } from './pages/quiz/quiz.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'quiz/:category', component: QuizComponent },
+  { path: 'quiz/:category/:length', component: QuizComponent },
   // { path: '**', component: PageNotFoundComponent }
 ];
