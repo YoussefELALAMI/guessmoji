@@ -44,16 +44,26 @@ export class HomeComponent {
     this.apiService.startQuiz(params).subscribe({
       next: (data) => {
         console.log('Quiz started successfully:', data);
-        this.isLoading = false;
-        this.quizParamsForm.reset();
-        this.other = false;
-        this.router.navigate(['/quiz', data.category]);
+        this.handleQuizStartSuccess(data);
       },
       error: (error) => {
         console.error('Error starting quiz:', error);
-        this.isLoading = false;
-        alert('Failed to start quiz. Please try again.');
+        this.handleQuizStartError(error);
       }
     });
+  }
+
+
+  private handleQuizStartSuccess(data: any) {
+    this.isLoading = false;
+    this.quizParamsForm.reset();
+    this.other = false;
+    this.router.navigate(['/quiz', data.category, data.length]);
+  }
+
+  private handleQuizStartError(error: any) {
+    this.isLoading = false;
+    const errorMessage = error.error?.message || 'Failed to start quiz. Please try again.';
+    alert(errorMessage);
   }
 }
