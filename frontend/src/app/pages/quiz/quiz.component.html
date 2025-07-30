@@ -2,9 +2,17 @@
 <div class="quiz-container">
 
     <app-header></app-header>
-
-    <form action="/action_page.php">
-        <label for="question">Question:</label><br><br>
+    <div class="quiz-header">
+        <h2>{{ quizData?.category }}</h2>
+        <div class="progress-bar">
+            <div class="progress" [style.width.%]="progressPercentage"></div>
+        </div>
+        <p class="question-counter">
+            Question {{ currentQuestionIndex + 1 }} of {{ quizData?.questions?.length }}
+        </p>
+    </div>
+    <form action="">
+        <label for="question">{{ quizData?.questions?.[currentQuestionIndex]?.question }}:</label><br><br>
         <input type="text" id="question" name="question" placeholder="Take a guess"><br><br>
         <input type="submit">
     </form> 
