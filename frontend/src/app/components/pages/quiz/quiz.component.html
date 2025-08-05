@@ -1,0 +1,28 @@
+<!-- quiz.component.html -->
+<div class="quiz-container">
+
+    <app-header></app-header>
+    <div class="quiz-header">
+        <h2>{{ quizData?.category }}</h2>
+    </div>
+    <form class="quiz" [formGroup]="questionForm" (ngSubmit)="submitAnswer()">
+        <div class="quiz__inner">
+            <div class="question__emoji" for="question">{{ quizData?.questions?.[currentQuestionIndex]?.question }}</div>
+            <input type="text" id="answer" name="answer" placeholder="Take a guess" formControlName="answer"><br><br>
+            <input class="submit-button" type="submit" value="Submit" [disabled]="questionForm.invalid || isSubmitted">
+        </div>
+        <br><br>
+        <div class="progress">
+            <div class= "progress__inner" [style.width.%]="currentQuestionIndex / length * 100"></div>
+        </div>
+    </form>
+    @if (isCorrect) {
+        <div class="feedback-correct">Correct! 🎉</div>
+    } @else if (isIncorrect) {
+        <div class="feedback-incorrect">Incorrect! 😢</div>
+        <div class="correct-answer">Correct Answer: {{ quizData?.questions?.[currentQuestionIndex]?.answer }}</div>
+    }
+</div>
+
+<!-- Footer Component -->
+<app-footer></app-footer>

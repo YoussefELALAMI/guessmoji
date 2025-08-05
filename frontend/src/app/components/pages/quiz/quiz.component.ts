@@ -1,14 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
-import { ApiService } from '../../services/api.service';
-import { QuizData } from '../../services/quiz.services';
+import { HeaderComponent } from "../../../components/header/header.component";
+import { ApiService } from '../../../services/api.service';
+import { QuizData } from '../../../services/quiz.services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/internal/operators/switchMap';
 import { map, Subject, takeUntil } from 'rxjs';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FooterComponent } from "../../footer/footer.component";
 
 @Component({
   selector: 'app-quiz',
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, ReactiveFormsModule, FooterComponent],
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.scss'
 })
@@ -16,11 +18,15 @@ export class QuizComponent {
   private destroy$ = new Subject<void>();
   private apiService = inject(ApiService);
   
+  questionForm: FormGroup = new FormGroup({
+    answer: new FormControl('', Validators.required)
+  });
   quizData: QuizData | null = null;
   progressPercentage: number = 0;
   currentQuestionIndex: number = 0;
-  answered = false;
-  isCorrect = false;
+  isCorrect: boolean = false;
+  isIncorrect: boolean = false;
+  isSubmitted: boolean = false;
   score = 0;
   length: number;
 
@@ -32,7 +38,6 @@ export class QuizComponent {
     this.route.params.pipe(
       switchMap(params => {
         const category = params['category'];
-        console.log(`Fetching quiz for category: ${category} with ID: ${params['id']}`);
         return this.apiService.getCategoryId(category).pipe(
           switchMap(id => this.apiService.getQuizByCategory(id, this.length)),
           map(data => ({
@@ -47,13 +52,26 @@ export class QuizComponent {
       next: (data) => {
         this.quizData = data;
         this.length = data.questions.length;
-        console.log('Quiz data loaded:', this.quizData);
       },
       error: (error) => {
         console.error('Error loading quiz data:', error);
         alert('Failed to load quiz data. Please try again.');
       }
     });
+  }
+
+  submitAnswer() {
+    this.isSubmitted = true;
+    const answer = this.questionForm.value.answer;
+    const currentQuestion = this.quizData?.questions[this.currentQuestionIndex];
+    if (answer.toLowerCase() === currentQuestion?.answer.toLowerCase()) {
+      this.isCorrect = true;
+      this.isIncorrect = false;
+      this.score++;
+    } else {
+      this.isCorrect = false;
+      this.isIncorrect = true;
+    }
   }
 
   ngOnDestroy(): void {

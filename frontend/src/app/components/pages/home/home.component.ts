@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { HeaderComponent } from "../header/header.component";
-import { ApiService } from '../../services/api.service';
+import { HeaderComponent } from "../../../components/header/header.component";
+import { ApiService } from '../../../services/api.service';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FooterComponent } from "../../footer/footer.component";
 
 @Component({
   selector: 'app-home',
-  imports: [HeaderComponent, ReactiveFormsModule],
+  imports: [HeaderComponent, ReactiveFormsModule, FooterComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
