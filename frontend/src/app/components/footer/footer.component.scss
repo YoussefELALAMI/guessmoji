@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap');
+
+// 🎨 Existing Theme Variables
+$accent-color: #f39c12;
+$bg-gradient: linear-gradient(to right, #8e2de2, #4a00e0);
+$text-color: #ffffff;
+
+// Footer Styles
+.bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: $bg-gradient;
+    padding: 15px 10px;
+    box-shadow: 0px -2px 12px rgba(0,0,0,0.1);
+}
+
+.bottom__container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.author {
+  text-align: center;
+  position: relative;
+  border-radius: 5px;
+  color: $text-color;
+  font-size: 0.9rem;
+  margin-top: auto;
+
+  a {
+    color: $accent-color;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: darken($accent-color, 10%);
+    }
+  }
+}
