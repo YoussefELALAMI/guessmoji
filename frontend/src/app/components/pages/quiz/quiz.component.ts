@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Output } from '@angular/core';
 import { HeaderComponent } from "../../../components/header/header.component";
 import { ApiService } from '../../../services/api.service';
 import { QuizData } from '../../../services/quiz.services';
@@ -7,17 +7,18 @@ import { switchMap } from 'rxjs/internal/operators/switchMap';
 import { map, Subject, takeUntil } from 'rxjs';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FooterComponent } from "../../footer/footer.component";
+import { ResultComponent } from "../result/result.component";
 
 @Component({
   selector: 'app-quiz',
-  imports: [HeaderComponent, ReactiveFormsModule, FooterComponent],
+  imports: [HeaderComponent, ReactiveFormsModule, FooterComponent, ResultComponent],
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.scss'
 })
 export class QuizComponent {
   private destroy$ = new Subject<void>();
   private apiService = inject(ApiService);
-  
+
   questionForm: FormGroup = new FormGroup({
     answer: new FormControl('', Validators.required)
   });
@@ -27,8 +28,9 @@ export class QuizComponent {
   isCorrect: boolean = false;
   isIncorrect: boolean = false;
   isSubmitted: boolean = false;
-  score = 0;
-  length: number;
+  isQuizCompleted: boolean = false;
+  score: number = 0;
+  length: number = 0;
 
   constructor(private route: ActivatedRoute) {
     const lengthParam = this.route.snapshot.paramMap.get('length');
@@ -71,6 +73,20 @@ export class QuizComponent {
     } else {
       this.isCorrect = false;
       this.isIncorrect = true;
+    }
+  }
+
+  nextQuestion() {
+    this.isSubmitted = false;
+    this.isCorrect = false;
+    this.isIncorrect = false;
+    this.questionForm.reset();
+
+    if (this.currentQuestionIndex < this.length - 1) {
+      this.currentQuestionIndex++;
+    } else {
+      this.isQuizCompleted = true;
+      this.progressPercentage = 100;
     }
   }
 

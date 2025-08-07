@@ -1,0 +1,43 @@
+<div class="results-container">
+  <div class="results-header">
+    <div class="results-title">Your Result</div>
+  </div>
+
+  <div class="score-display">
+    <div class="score-circle">
+      <div class="score-ring" [style.background]="getScoreRingGradient()"></div>
+      <div class="score-inner">
+        <div class="score-number">{{ animatedScore }}</div>
+        <div class="score-total">of 100</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="performance-stats">
+    <div class="stat-item">
+      <div class="stat-value">{{ finalScore }}%</div>
+      <div class="stat-label">Score</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">{{ getRanking() }}</div>
+      <div class="stat-label">Ranking</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">{{ getGrade() }}</div>
+      <div class="stat-label">Grade</div>
+    </div>
+  </div>
+
+  <div class="result-feedback">
+    <div class="feedback-title" [ngClass]="getFeedbackClass()">
+      {{ getFeedbackTitle() }}
+    </div>
+    <div class="feedback-description">
+      {{ getFeedbackDescription() }}
+    </div>
+  </div>
+
+  <button class="action-button" (click)="resetQuiz()">
+    <span class="button-text">Play Again</span>
+  </button>
+</div>
