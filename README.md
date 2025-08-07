@@ -193,33 +193,76 @@ ng test
 - [x] Backend API development
 - [x] AI puzzle generation
 - [x] SQLite database setup
-- [ ] Angular frontend completion
-- [ ] User authentication
+- [x] Angular frontend completion
+- [ ] User authentication system
 - [ ] Multiplayer mode
 - [ ] Mobile app version
 - [ ] Additional puzzle categories
 - [ ] Social sharing features
+- [ ] Unit and integration testing
+- [ ] CI/CD pipeline integration
+- [ ] Docker deployment
+- [ ] Live demo deployment
+- [ ] Leaderboard with Twitch/Streamer mode
+- [ ] Advanced AI features (difficulty tuning, hints)
+- [ ] Usage analytics and logs
+- [ ] Demo video + media preview in README
+- [ ] Proper license file and GitHub topics
 
-## 🐛 Known Issues
+---
 
-- Frontend is currently in development
-- Limited puzzle categories available
-- No user authentication yet
+## ✅ To-Do List & Features in Progress
 
-## 📄 License
+> A prioritized list of what’s next, including brief guidance for each task.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### 🔐 1. Authentication & User Profiles
+- Implement login/signup system (JWT or OAuth with Google/GitHub/Twitch/Kick).
+- Store player stats and scores by user account.
+- 📌 *Suggested tools*: `Flask-JWT-Extended`, `Flask-OAuthlib`, `Angular OAuth`, `Firebase Auth`.
 
-## 🙏 Acknowledgments
+### 🧪 2. Testing & CI/CD
+- Expand `pytest` backend test coverage.
+- Add frontend tests (Angular CLI with Jasmine/Karma).
+- Configure GitHub Actions for CI pipelines (test, build, deploy).
+- 📌 *Suggested file*: `.github/workflows/ci.yml`
 
-- OpenAI for AI-powered puzzle generation
-- The emoji community for endless inspiration
-- Contributors and testers
+### 🚀 3. Deployment & DevOps
+- Finalize `Dockerfile` for frontend and backend.
+- Use `docker-compose` for full-stack local dev.
+- Deploy:
+  - Backend: Render, Railway, or Heroku
+  - Frontend: Vercel, Netlify
+- 📌 Add `DEPLOYMENT.md` guide (optional).
+
+### 🕹️ 4. Real-Time Multiplayer Mode
+- Use WebSockets: `Flask-SocketIO` + Angular WebSocket service.
+- Add multiplayer game rooms with shared guessing sessions.
+- Optionally enable streamer participation (Twitch API).
+
+### 🏆 5. Leaderboard & Social Features
+- Add global leaderboard with filtering (day/week/all-time).
+- Enable Twitch/Kick "streamer mode" with live results screen.
+- Add shareable game results (Twitter, WhatsApp).
+- 📌 Backend: SQLite schema update, API routes.  
+  Frontend: Angular Material table, animations.
+
+### 🧠 6. Expand AI Use
+- Add hint generation (first letter, partial reveal).
+- Use GPT prompt engineering or function calling for difficulty tuning.
+- Optionally explore embeddings (OpenAI or Cohere) for better matching.
+
+### 📈 7. Analytics & Logging
+- Add analytics tools: Google Analytics, PostHog, or Matomo.
+- Improve logging using `logging` module + external service (e.g., Sentry).
+- Track usage: category preference, error rate, time spent.
+
+### 🎨 8. Polish & Documentation
+- Add gameplay GIF or video preview in README (Loom, Peek).
+- Include a public live demo link.
+- Add MIT license file and GitHub tags like `#game`, `#openai`, `#angular`, `#flask`.
+
 
 ## 📞 Support
-
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/YoussefELALAMI/guessmoji/issues)
-- 💡 **Feature Requests**: [GitHub Discussions](https://github.com/YoussefELALAMI/guessmoji/discussions)
 - 📧 **Contact**: youssef2003elalami@gmail.com
 
 ---
