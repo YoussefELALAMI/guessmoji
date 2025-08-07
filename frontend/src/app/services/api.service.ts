@@ -34,4 +34,9 @@ export class ApiService {
     return this.http.post<QuizData>(`${this.apiUrl}/start-quiz`, params);
   }
 
+  // DELETE request to delete all categories and quizzes
+  deleteAllQuizzes(): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete-tables`);
+  }
+
 }

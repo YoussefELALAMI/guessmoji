@@ -3,6 +3,7 @@
 from flask import Blueprint, jsonify, request
 from models.database import Category, Emojis
 from services.emoji_gen import generate_emoji, save_quizzes_to_db
+from models.database import db
 
 game_bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -52,3 +53,13 @@ def start_quiz():
     return jsonify({"category": category or custom_category,
                            "length": number_of_questions,
                              "questions": emojis}), 200
+
+@game_bp.route("/delete-tables", methods=["DELETE"])
+def delete_tables():
+    try:
+        Category.query.delete()
+        Emojis.query.delete()
+        db.session.commit()
+        return jsonify({"message": "All categories and quizzes deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
